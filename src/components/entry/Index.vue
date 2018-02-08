@@ -44,11 +44,13 @@ export default class Index extends RootVue {
     }
 
     private getResasData(): any {
+        // アロー関数を用いて
         Request(this.settingResasApi(), (error: string, response: any, body: any) => {
             console.log('error:', error);
             console.log('statusCode:', response && response.statusCode);
             console.log('body:', body.result);
             this.citys = body.result;
+            // apiから取得
             console.log(this.citys[1]);
         });
     }
