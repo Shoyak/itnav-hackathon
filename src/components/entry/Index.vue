@@ -1,9 +1,10 @@
 <template lang='pug'>
 .vue-index
-    .reactive-title {{ reactiveTitle() }}
+    compare
     h2 以下APIテスト
     ul
-        li(v-for:"city in citys")
+        li(v-for="city in citys") {{ city.cityName }}<br>
+
     button(@click="getData")  button
 </template>
 
@@ -13,6 +14,7 @@ import Component from 'vue-class-component';
 import VueUtil from '@/scripts/util/VueUtil';
 import RootVue from '@/components/RootVue';
 import Sample from '@/components/Sample.vue';
+import Compare from '@/components/Compare.vue';
 // Ajax通信ライブラリ
 import * as Request from 'request';
 import { AsyncHook } from 'async_hooks';
@@ -51,13 +53,8 @@ export default class Index extends RootVue {
             console.log('body:', body.result);
             this.citys = body.result;
             // apiから取得
-            console.log(this.citys[1]);
+            // console.log(this.citys[1]);
         });
-    }
-
-    protected beforeCreate(): void {
-        // Inner Vue 登録
-        VueUtil.registerComponents([Sample]);
     }
 
     async getData(): Promise<any> {
@@ -66,6 +63,11 @@ export default class Index extends RootVue {
         } catch (err) {
             console.error();
         }
+    }
+
+    protected beforeCreate(): void {
+        // Inner Vue 登録
+        VueUtil.registerComponents([Sample, Compare]);
     }
 }
 
