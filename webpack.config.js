@@ -104,7 +104,9 @@ const config = {
             favicon: path.join(srcPath, 'static' , 'favicon.ico'),
             inject: false,
         }),
-    ]
+    ],
+    // エラー解決用 Module not found: Error: Can't resolve 'fs'
+    node: {fs: 'empty'}
 };
 
 /**
