@@ -3,8 +3,8 @@
     .reactive-title {{ reactiveTitle() }}
     h2 以下APIテスト
     ul
-        li(v-for="character in characters") {{character.name}}
-    button(@click="getCharacters")  button
+        li(v-for:"city in citys")
+    button(@click="getData")  button
 </template>
 
 <script lang='ts'>
@@ -14,7 +14,8 @@ import VueUtil from '@/scripts/util/VueUtil';
 import RootVue from '@/components/RootVue';
 import Sample from '@/components/Sample.vue';
 // Ajax通信ライブラリ
-import Axios from 'axios';
+import * as Request from 'request';
+import { AsyncHook } from 'async_hooks';
 
 /**
  * Vue Component
@@ -22,29 +23,46 @@ import Axios from 'axios';
 @Component({})
 export default class Index extends RootVue {
     public title: string = 'index';
-    public characters = [
-        {"name": ""}
-    ];
+    public citys: any = [];
+
+    private settingResasApi(): any {
+        const ENDPOINT = 'https://opendata.resas-portal.go.jp/api/v1/cities?prefCode=21';
+        const APIKEY = 'oinv88HjwHSTNiNds00XVNPMjcpXedHNxMFj4ZfK';
+        const headers = {
+            'Content-Type':'application/json',
+            'X-API-KEY': APIKEY
+        }
+
+        let url = ENDPOINT
+        let options = {
+            url: url,
+            method: 'GET',
+            headers: headers,
+            json: true
+        }
+        return options
+    }
+
+    private getResasData(): any {
+        Request(this.settingResasApi(), (error: string, response: any, body: any) => {
+            console.log('error:', error);
+            console.log('statusCode:', response && response.statusCode);
+            console.log('body:', body.result);
+            this.citys = body.result;
+            console.log(this.citys[1]);
+        });
+    }
 
     protected beforeCreate(): void {
         // Inner Vue 登録
         VueUtil.registerComponents([Sample]);
     }
 
-    // apiからaxiosを用いて取得
-    async getCharacters() {
-        let url = 'https://gist.githubusercontent.com/anonymous/c41ae1698aca3595b95d1496ebf42d83/raw/2addeb281bcb4aae2be9c8204c0ec623c4cb446c/characters.json';
-        // await Axios.get(url)
-        // .then(x => {
-        //     this.characters = x.data;
-        // });
-
-        // try chathバージョン
+    async getData(): Promise<any> {
         try {
-            let res = await Axios.get(url)
-            this.characters = res.data
-        } catch (e) {
-            console.error(e)
+            await this.getResasData()
+        } catch (err) {
+            console.error();
         }
     }
 }
