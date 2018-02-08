@@ -1,9 +1,12 @@
 <template lang='pug'>
 .vue-index
+    select-prefecture
+    select-city
     compare
     h2 以下APIテスト
     ul
-        li(v-for="city in citys") {{ city.cityName }}<br>
+        li(v-for="city in cities") {{ city.cityName }}<br>
+    div {{ cities }}
 
     button(@click="getData")  button
 </template>
@@ -14,6 +17,8 @@ import Component from 'vue-class-component';
 import VueUtil from '@/scripts/util/VueUtil';
 import RootVue from '@/components/RootVue';
 import Sample from '@/components/Sample.vue';
+import SelectPrefecture from '@/components/SelectPrefecture.vue';
+import SelectCity from '@/components/SelectCity.vue';
 import Compare from '@/components/Compare.vue';
 // Ajax通信ライブラリ
 import * as Request from 'request';
@@ -25,17 +30,18 @@ import { AsyncHook } from 'async_hooks';
 @Component({})
 export default class Index extends RootVue {
     public title: string = 'index';
-    public citys: any = [];
+    public cities: any = [];
+    private settingCondition: string = "cities";
 
     private settingResasApi(): any {
-        const ENDPOINT = 'https://opendata.resas-portal.go.jp/api/v1/cities?prefCode=21';
+        const ENDPOINT = 'https://opendata.resas-portal.go.jp/api/v1/';
         const APIKEY = 'oinv88HjwHSTNiNds00XVNPMjcpXedHNxMFj4ZfK';
         const headers = {
             'Content-Type':'application/json',
             'X-API-KEY': APIKEY
         }
 
-        let url = ENDPOINT
+        let url = ENDPOINT + this.settingCondition;
         let options = {
             url: url,
             method: 'GET',
@@ -50,10 +56,10 @@ export default class Index extends RootVue {
         Request(this.settingResasApi(), (error: string, response: any, body: any) => {
             console.log('error:', error);
             console.log('statusCode:', response && response.statusCode);
-            console.log('body:', body.result);
-            this.citys = body.result;
+            console.log('body:', body);
+            this.cities = body.result;
             // apiから取得
-            // console.log(this.citys[1]);
+            // console.log(this.cities[1]);
         });
     }
 
@@ -67,7 +73,7 @@ export default class Index extends RootVue {
 
     protected beforeCreate(): void {
         // Inner Vue 登録
-        VueUtil.registerComponents([Sample, Compare]);
+        VueUtil.registerComponents([Sample,SelectPrefecture, SelectCity, Compare]);
     }
 }
 
