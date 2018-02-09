@@ -8,7 +8,7 @@
     button(@click="getData") データ表示
 
     .resultSec
-        h2 人口推移(予想含む)
+        h2() {{ searchCityName }}人口推移(予想含む)
         ul
             li(v-for="population in populations") {{ population.year }}年 : {{ population.value }}人<br>
 
@@ -32,6 +32,7 @@ export default class SelectCity extends Vue {
     private selected: string = "選択してください";
     private searchedCityUrl: string = "";
     private populations: object = [];
+    private searchCityName: string = "";
     // API検索用変数
     private searchCityCode = "";
     private searchPrefCode = "";
@@ -93,6 +94,8 @@ export default class SelectCity extends Vue {
             }
             return false;
         });
+
+        this.searchCityName = citySelected[0].cityName;
 
         // 検索対象のcityCode表示
         this.searchedCityUrl = citySelected[0].cityUrl;
