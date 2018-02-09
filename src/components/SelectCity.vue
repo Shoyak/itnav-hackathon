@@ -3,9 +3,9 @@
     h2 ▼市町村
     select(v-model="selected")
         option(v-for="city in cities" v-bind:value="city.cityCode") {{ city.cityName }}
-    span 選択されたprefCode: {{ selected }}
-    a(v-bind:href="searchedCityUrl")  {{ searchedCityUrl }}
-    button(@click="check") check
+    span URL :
+        a(v-bind:href="searchedCityUrl")   {{ searchedCityUrl }}
+    button(@click="check") 市HPリンク表示
 
     //- citiesの中身を列挙 cityNameを表示
     //- ul
@@ -26,51 +26,52 @@ export default class SelectCity extends Vue {
     private selected: string = "選択してください";
     private searchedCityUrl: string = "";
     private cities: Cities = [
-        { "cityCode": "04100", "cityName": "仙台市", "cityUrl": "https://ja.wikipedia.org/wiki/%E4%BB%99%E5%8F%B0%E5%B8%82" },
-        { "cityCode": "04101", "cityName": "仙台市青葉区", "cityUrl": "" },
-        { "cityCode": "04102", "cityName": "仙台市宮城野区", "cityUrl": "" },
-        { "cityCode": "04103", "cityName": "仙台市若林区", "cityUrl": "" },
-        { "cityCode": "04104", "cityName": "仙台市太白区", "cityUrl": "" },
-        { "cityCode": "04105", "cityName": "仙台市泉区", "cityUrl": "" },
-        { "cityCode": "04202", "cityName": "石巻市", "cityUrl": "" },
-        { "cityCode": "04203", "cityName": "塩竈市", "cityUrl": "" },
-        { "cityCode": "04205", "cityName": "気仙沼市", "cityUrl": "" },
-        { "cityCode": "04206", "cityName": "白石市", "cityUrl": "" },
-        { "cityCode": "04207", "cityName": "名取市", "cityUrl": "" },
-        { "cityCode": "04208", "cityName": "角田市", "cityUrl": "" },
-        { "cityCode": "04209", "cityName": "多賀城市", "cityUrl": "" },
-        { "cityCode": "04211", "cityName": "岩沼市", "cityUrl": "" },
-        { "cityCode": "04212", "cityName": "登米市", "cityUrl": "" },
-        { "cityCode": "04213", "cityName": "栗原市", "cityUrl": "" },
-        { "cityCode": "04214", "cityName": "東松島市", "cityUrl": "" },
-        { "cityCode": "04215", "cityName": "大崎市", "cityUrl": "" },
-        { "cityCode": "04301", "cityName": "蔵王町", "cityUrl": "" },
-        { "cityCode": "04302", "cityName": "七ヶ宿町", "cityUrl": "" },
-        { "cityCode": "04321", "cityName": "大河原町", "cityUrl": "" },
-        { "cityCode": "04322", "cityName": "村田町", "cityUrl": "" },
-        { "cityCode": "04323", "cityName": "柴田町", "cityUrl": "" },
-        { "cityCode": "04324", "cityName": "川崎町", "cityUrl": "" },
-        { "cityCode": "04341", "cityName": "丸森町", "cityUrl": "" },
-        { "cityCode": "04361", "cityName": "亘理町", "cityUrl": "" },
-        { "cityCode": "04362", "cityName": "山元町", "cityUrl": "" },
-        { "cityCode": "04401", "cityName": "松島町", "cityUrl": "" },
-        { "cityCode": "04404", "cityName": "七ヶ浜町", "cityUrl": "" },
-        { "cityCode": "04406", "cityName": "利府町", "cityUrl": "" },
-        { "cityCode": "04421", "cityName": "大和町", "cityUrl": "" },
-        { "cityCode": "04422", "cityName": "大郷町", "cityUrl": "" },
-        { "cityCode": "04423", "cityName": "富谷町", "cityUrl": "" },
-        { "cityCode": "04424", "cityName": "大衡村", "cityUrl": "" },
-        { "cityCode": "04444", "cityName": "色麻町", "cityUrl": "" },
-        { "cityCode": "04445", "cityName": "加美町", "cityUrl": "" },
-        { "cityCode": "04501", "cityName": "涌谷町", "cityUrl": "" },
-        { "cityCode": "04505", "cityName": "美里町", "cityUrl": "" },
-        { "cityCode": "04581", "cityName": "女川町", "cityUrl": "" },
-        { "cityCode": "04606", "cityName": "南三陸町", "cityUrl": "" }
+        { "cityCode": "04100", "cityName": "仙台市", "cityUrl": "https://www.city.sendai.jp/" },
+        { "cityCode": "04101", "cityName": "仙台市青葉区", "cityUrl": "https://www.city.sendai.jp/" },
+        { "cityCode": "04102", "cityName": "仙台市宮城野区", "cityUrl": "https://www.city.sendai.jp/" },
+        { "cityCode": "04103", "cityName": "仙台市若林区", "cityUrl": "https://www.city.sendai.jp/" },
+        { "cityCode": "04104", "cityName": "仙台市太白区", "cityUrl": "https://www.city.sendai.jp/" },
+        { "cityCode": "04105", "cityName": "仙台市泉区", "cityUrl": "https://www.city.sendai.jp/" },
+        { "cityCode": "04202", "cityName": "石巻市", "cityUrl": "http://www.city.ishinomaki.lg.jp/" },
+        { "cityCode": "04203", "cityName": "塩竈市", "cityUrl": "https://www.city.shiogama.miyagi.jp/" },
+        { "cityCode": "04205", "cityName": "気仙沼市", "cityUrl": "http://www.kesennuma.miyagi.jp/" },
+        { "cityCode": "04206", "cityName": "白石市", "cityUrl": "http://www.city.shiroishi.miyagi.jp/" },
+        { "cityCode": "04207", "cityName": "名取市", "cityUrl": "http://www.city.natori.miyagi.jp/" },
+        { "cityCode": "04208", "cityName": "角田市", "cityUrl": "http://www.city.kakuda.lg.jp/" },
+        { "cityCode": "04209", "cityName": "多賀城市", "cityUrl": "http://www.city.tagajo.miyagi.jp/index.html" },
+        { "cityCode": "04211", "cityName": "岩沼市", "cityUrl": "https://www.city.iwanuma.miyagi.jp/" },
+        { "cityCode": "04212", "cityName": "登米市", "cityUrl": "http://www.city.tome.miyagi.jp/" },
+        { "cityCode": "04213", "cityName": "栗原市", "cityUrl": "http://www.kuriharacity.jp/" },
+        { "cityCode": "04214", "cityName": "東松島市", "cityUrl": "http://www.city.higashimatsushima.miyagi.jp/" },
+        { "cityCode": "04215", "cityName": "大崎市", "cityUrl": "http://www.city.osaki.miyagi.jp/" },
+        { "cityCode": "04301", "cityName": "蔵王町", "cityUrl": "http://www.town.zao.miyagi.jp/" },
+        { "cityCode": "04302", "cityName": "七ヶ宿町", "cityUrl": "http://www.town.shichikashuku.miyagi.jp/" },
+        { "cityCode": "04321", "cityName": "大河原町", "cityUrl": "http://www.town.ogawara.miyagi.jp/" },
+        { "cityCode": "04322", "cityName": "村田町", "cityUrl": "http://www.town.murata.miyagi.jp/" },
+        { "cityCode": "04323", "cityName": "柴田町", "cityUrl": "http://www.town.shibata.miyagi.jp/" },
+        { "cityCode": "04324", "cityName": "川崎町", "cityUrl": "http://www.town.kawasaki.miyagi.jp/" },
+        { "cityCode": "04341", "cityName": "丸森町", "cityUrl": "http://www.town.marumori.miyagi.jp/" },
+        { "cityCode": "04361", "cityName": "亘理町", "cityUrl": "https://www.town.watari.miyagi.jp/" },
+        { "cityCode": "04362", "cityName": "山元町", "cityUrl": "http://www.town.yamamoto.miyagi.jp/" },
+        { "cityCode": "04401", "cityName": "松島町", "cityUrl": "http://www.town.matsushima.miyagi.jp/" },
+        { "cityCode": "04404", "cityName": "七ヶ浜町", "cityUrl": "https://www.shichigahama.com/" },
+        { "cityCode": "04406", "cityName": "利府町", "cityUrl": "http://www.town.rifu.miyagi.jp/" },
+        { "cityCode": "04421", "cityName": "大和町", "cityUrl": "https://www.town.taiwa.miyagi.jp/" },
+        { "cityCode": "04422", "cityName": "大郷町", "cityUrl": "https://www.town.miyagi-osato.lg.jp/" },
+        { "cityCode": "04423", "cityName": "富谷町", "cityUrl": "http://www.tomiya-city.miyagi.jp/" },
+        { "cityCode": "04424", "cityName": "大衡村", "cityUrl": "http://www.village.ohira.miyagi.jp/" },
+        { "cityCode": "04444", "cityName": "色麻町", "cityUrl": "http://www.town.shikama.miyagi.jp/" },
+        { "cityCode": "04445", "cityName": "加美町", "cityUrl": "http://www.town.kami.miyagi.jp/" },
+        { "cityCode": "04501", "cityName": "涌谷町", "cityUrl": "http://www.town.wakuya.miyagi.jp/" },
+        { "cityCode": "04505", "cityName": "美里町", "cityUrl": "http://www.town.misato.miyagi.jp/" },
+        { "cityCode": "04581", "cityName": "女川町", "cityUrl": "http://www.town.onagawa.miyagi.jp/" },
+        { "cityCode": "04606", "cityName": "南三陸町", "cityUrl": "https://www.town.minamisanriku.miyagi.jp/" }
     ];
 
     private check() {
         // 検索したいcityCode入れる
         let searchCityCode = this.selected;
+
         // 選択されたものを検索する
         let citySelected = this.cities.filter((value: any, index: any, array: any) => {
             // cityCodeの指定
@@ -79,6 +80,7 @@ export default class SelectCity extends Vue {
             }
             return false;
         });
+
         // 検索対象のcityCode表示
         this.searchedCityUrl = citySelected[0].cityUrl;
         console.log(this.searchedCityUrl);
@@ -88,5 +90,9 @@ export default class SelectCity extends Vue {
 
 <style lang='sass' scoped>
 .vue-select-city
+    button
+        padding: 5px
+        background: #f8f8f8
+        border-radius: 5px
 </style>
 
