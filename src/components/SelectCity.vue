@@ -5,6 +5,11 @@
         option(v-for="city in cities" v-bind:value="city.cityCode") {{ city.cityName }}
     span 選択されたprefCode: {{ selected }}
     button(@click="check") check
+
+    //- citiesの中身を列挙 cityNameを表示
+    //- ul
+    //-     li(v-for="city in cities") {{ city.cityName }}<br>
+    //- button(@click="checkCities") check2
 </template>
 
 <script lang='ts'>
@@ -61,24 +66,31 @@ export default class SelectCity extends Vue {
         { "prefCode": 4, "cityCode": "04606", "cityName": "南三陸町", "bigCityFlag": "0" }
     ];
 
-    private citySelected = Object.keys(this.cities).filter((key) => {
-        let result = this.cities[key] === 0;
-        return result
-    });
-
     private check() {
-        // this.cities[0]~[82](市町村)[1]
-        // flag
-        console.log(this.cities[0].bigCityFlag);
-        // cityCode
-        console.log(this.cities[0].cityCode);
+
+        let citySelected = this.cities.filter((value: any, index: any, array: any) => {
+            // cityCodeの指定
+            if( value.cityCode == "04102" ) {
+                return true;
+            }
+            return false;
+        });
+        // 04102 宮城野区のcityCodeが返ってくる
+        console.log(citySelected[0].cityCode);
+        // // this.cities[0]~[82](市町村)[1]
+        // // flag
+        // console.log(this.cities[0].bigCityFlag);
+        // // cityCode
+        // console.log(this.cities[0].cityCode);
         // CityName
-        console.log(this.cities[0].cityName);
-        // prefCode
-        console.log(this.cities[0].prefCode);
-        // どうしても取れない
-        console.log(this.citySelected);
+        console.log(this.cities[2].cityName);
+        // // prefCode
+        // console.log(this.cities[0].prefCode);
     }
+
+    // private checkCities() {
+
+    // }
 }
 </script>
 
