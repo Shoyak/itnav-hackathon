@@ -1,20 +1,17 @@
 <template lang='pug'>
 .vue-select-city
-    h2 ▼市町村
+    h1 宮城県市町村データ取得app
+    p 市町村選択
     select(v-model="selected")
         option(v-for="city in cities" v-bind:value="city.cityCode") {{ city.cityName }}
-    span URL :
-        a(v-bind:href="searchedCityUrl")   {{ searchedCityUrl }}
-    button(@click="getData") 市HPリンク表示
+    button(@click="getData") データ表示
 
     h2 人口推移(予想含む)
     ul
         li(v-for="population in populations") {{ population.year }}年 : {{ population.value }}人<br>
 
-    //- citiesの中身を列挙 cityNameを表示
-    //- ul
-    //-     li(v-for="city in cities") {{ city.cityName }}<br>
-    //- button(@click="checkCities") check2
+    span URL :
+        a(v-bind:href="searchedCityUrl")   {{ searchedCityUrl }}
 </template>
 
 <script lang='ts'>
@@ -148,6 +145,8 @@ export default class SelectCity extends Vue {
 
 <style lang='sass' scoped>
 .vue-select-city
+    h1
+        font-size: 1.2rem
     button
         padding: 5px
         background: #f8f8f8
