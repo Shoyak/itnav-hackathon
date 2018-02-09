@@ -31,7 +31,7 @@ import { AsyncHook } from 'async_hooks';
 export default class SelectCity extends Vue {
     private selected: string = "選択してください";
     private searchedCityUrl: string = "";
-    private populations: any = [];
+    private populations: object = [];
     // API検索用変数
     private searchCityCode = "";
     private searchPrefCode = "";
@@ -86,7 +86,7 @@ export default class SelectCity extends Vue {
         let searchCityCode = this.selected;
 
         // 選択されたものを検索する
-        let citySelected = this.cities.filter((value: any, index: any, array: any) => {
+        let citySelected = this.cities.filter((value: Cities, index: number, array: object) => {
             // cityCodeの指定
             if( value.cityCode == searchCityCode ) {
                 return true;
@@ -120,7 +120,7 @@ export default class SelectCity extends Vue {
         return options
     }
 
-    private getResasData(): any {
+    private getResasData(): void {
         console.log(this.settingCondition);
         // アロー関数を用いて
         Request(this.settingResasApi(), (error: string, response: any, body: any) => {
@@ -134,7 +134,7 @@ export default class SelectCity extends Vue {
 
     }
 
-    async getData(): Promise<any> {
+    async getData(): Promise<void> {
         try {
             await this.check()
             await this.getResasData()
