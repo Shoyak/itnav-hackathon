@@ -27,8 +27,7 @@ const config = {
     context: contextPath,
 
     entry: {
-        "index": path.resolve(entryScriptsPath, 'index.ts'),
-        "sub": path.resolve(entryScriptsPath, 'sub.ts')
+        "index": path.resolve(entryScriptsPath, 'index.ts')
     },
 
     output: {
