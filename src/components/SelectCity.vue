@@ -7,7 +7,7 @@
         a(v-bind:href="searchedCityUrl")   {{ searchedCityUrl }}
     button(@click="getData") 市HPリンク表示
 
-    h2 人口推移
+    h2 人口推移(予想含む)
     ul
         li(v-for="population in populations") {{ population.year }}年 : {{ population.value }}人<br>
 
@@ -34,9 +34,9 @@ export default class SelectCity extends Vue {
     private searchedCityUrl: string = "";
     private populations: any = [];
     // API検索用変数
-    private searchCityCode = "04100";
-    private searchPrefCode = "4";
-    private settingCondition: string = "population/composition/perYear?cityCode=" + this.searchCityCode + "&prefCode=" + this.searchPrefCode;
+    private searchCityCode = "";
+    private searchPrefCode = "";
+    private settingCondition: string = "";
 
 
     private cities: Cities = [
@@ -97,8 +97,10 @@ export default class SelectCity extends Vue {
 
         // 検索対象のcityCode表示
         this.searchedCityUrl = citySelected[0].cityUrl;
+        this.searchPrefCode = citySelected[0].prefCode;
+        this.searchCityCode = citySelected[0].cityCode;
         console.log(this.searchedCityUrl);
-
+        this.settingCondition = "population/composition/perYear?cityCode=" + this.searchCityCode + "&prefCode=" + this.searchPrefCode;
     }
 
     private settingResasApi(): any {
