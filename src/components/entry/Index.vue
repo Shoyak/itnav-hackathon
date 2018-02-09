@@ -1,8 +1,6 @@
 <template lang='pug'>
 .vue-index
     select-city
-
-    button(@click="getData")  button
 </template>
 
 <script lang='ts'>
@@ -25,7 +23,7 @@ export default class Index extends RootVue {
 
     protected beforeCreate(): void {
         // Inner Vue 登録
-        VueUtil.registerComponents([Sample,SelectPrefecture, SelectCity, Compare]);
+        VueUtil.registerComponents([SelectCity]);
     }
 }
 
