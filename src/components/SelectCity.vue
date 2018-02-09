@@ -1,17 +1,19 @@
 <template lang='pug'>
 .vue-select-city
     h1 宮城県市町村データ取得app
-    p 市町村選択
-    select(v-model="selected")
-        option(v-for="city in cities" v-bind:value="city.cityCode") {{ city.cityName }}
+    .searchSec
+        h2 市町村選択
+        select(v-model="selected")
+            option(v-for="city in cities" v-bind:value="city.cityCode") {{ city.cityName }}
     button(@click="getData") データ表示
 
-    h2 人口推移(予想含む)
-    ul
-        li(v-for="population in populations") {{ population.year }}年 : {{ population.value }}人<br>
+    .resultSec
+        h2 人口推移(予想含む)
+        ul
+            li(v-for="population in populations") {{ population.year }}年 : {{ population.value }}人<br>
 
-    span URL :
-        a(v-bind:href="searchedCityUrl")   {{ searchedCityUrl }}
+        span City URL :
+            a(v-bind:href="searchedCityUrl") {{ searchedCityUrl }}
 </template>
 
 <script lang='ts'>
@@ -145,11 +147,40 @@ export default class SelectCity extends Vue {
 
 <style lang='sass' scoped>
 .vue-select-city
+    width: 420px
+    padding: 32px
+    margin: 0 auto
+    display: flex
+    flex-direction: column
+    justify-content: center
+
     h1
-        font-size: 1.2rem
+        font-size: 2.4rem
+        text-align: center
+
+    h2
+        font-size: 1.8rem
+
+    & > div
+        padding: 12px
+        display: flex
+        flex-direction: column
+        &.searchSec
+            align-items: center
+
+        & > select
+           height: 3rem
+           width: 14rem
+
+
+        & > ul, & > span
+            list-style: none
+            padding: 1rem
+
     button
         padding: 5px
         background: #f8f8f8
         border-radius: 5px
+        margin: 12px
 </style>
 
