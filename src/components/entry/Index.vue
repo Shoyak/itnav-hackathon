@@ -1,9 +1,9 @@
 <template lang='pug'>
 .vue-index
     select-city
-    h2 以下APIテスト
+    h2 人口推移
     ul
-        li(v-for="city in cities") {{ city.cityName }}<br>
+        li(v-for="population in populations") {{ population.year }}年 : {{ population.value }}人<br>
 
     button(@click="getData")  button
 </template>
@@ -27,8 +27,8 @@ import { AsyncHook } from 'async_hooks';
 @Component({})
 export default class Index extends RootVue {
     public title: string = 'index';
-    public cities: any = [];
-    private settingCondition: string = "cities";
+    public populations: any = [];
+    private settingCondition: string = "population/composition/perYear?cityCode=04202&prefCode=4";
 
     private settingResasApi(): any {
         const ENDPOINT = 'https://opendata.resas-portal.go.jp/api/v1/';
@@ -53,8 +53,8 @@ export default class Index extends RootVue {
         Request(this.settingResasApi(), (error: string, response: any, body: any) => {
             console.log('error:', error);
             console.log('statusCode:', response && response.statusCode);
-            console.log('body:', body);
-            this.cities = body.result;
+            console.log('body:', body.result.data);
+            this.populations = body.result.data[0].data;
             // apiから取得
             // console.log(this.cities[1]);
         });
