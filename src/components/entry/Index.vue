@@ -1,12 +1,9 @@
 <template lang='pug'>
 .vue-index
-    select-prefecture
     select-city
-    compare
     h2 以下APIテスト
     ul
         li(v-for="city in cities") {{ city.cityName }}<br>
-    div {{ cities }}
 
     button(@click="getData")  button
 </template>
