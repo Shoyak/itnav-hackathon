@@ -68,7 +68,7 @@ export default class SelectCity extends Vue {
 
     private check() {
         // 検索したいcityCode入れる
-        let searchCityCode = "04104";
+        let searchCityCode = this.selected;
         // 選択されたものを検索する
         let citySelected = this.cities.filter((value: any, index: any, array: any) => {
             // cityCodeの指定
@@ -78,7 +78,7 @@ export default class SelectCity extends Vue {
             return false;
         });
         // 検索対象のcityCode表示
-        console.log(citySelected[0].cityCode);
+        console.log(citySelected[0].cityName);
     }
 }
 </script>
