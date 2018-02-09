@@ -5,7 +5,11 @@
         option(v-for="city in cities" v-bind:value="city.cityCode") {{ city.cityName }}
     span URL :
         a(v-bind:href="searchedCityUrl")   {{ searchedCityUrl }}
-    button(@click="check") 市HPリンク表示
+    button(@click="getData") 市HPリンク表示
+
+    h2 人口推移
+    ul
+        li(v-for="population in populations") {{ population.year }}年 : {{ population.value }}人<br>
 
     //- citiesの中身を列挙 cityNameを表示
     //- ul
@@ -17,6 +21,9 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import VueUtil from '@/scripts/util/VueUtil';
+// Ajax通信ライブラリ
+import * as Request from 'request';
+import { AsyncHook } from 'async_hooks';
 
 /**
  * Vue Component
@@ -25,6 +32,13 @@ import VueUtil from '@/scripts/util/VueUtil';
 export default class SelectCity extends Vue {
     private selected: string = "選択してください";
     private searchedCityUrl: string = "";
+    private populations: any = [];
+    // API検索用変数
+    private searchCityCode = "04100";
+    private searchPrefCode = "4";
+    private settingCondition: string = "population/composition/perYear?cityCode=" + this.searchCityCode + "&prefCode=" + this.searchPrefCode;
+
+
     private cities: Cities = [
         { "cityCode": "04100", "cityName": "仙台市", "cityUrl": "https://www.city.sendai.jp/" },
         { "cityCode": "04101", "cityName": "仙台市青葉区", "cityUrl": "https://www.city.sendai.jp/" },
@@ -84,6 +98,48 @@ export default class SelectCity extends Vue {
         // 検索対象のcityCode表示
         this.searchedCityUrl = citySelected[0].cityUrl;
         console.log(this.searchedCityUrl);
+
+    }
+
+    private settingResasApi(): any {
+        const ENDPOINT = 'https://opendata.resas-portal.go.jp/api/v1/';
+        const APIKEY = 'oinv88HjwHSTNiNds00XVNPMjcpXedHNxMFj4ZfK';
+        const headers = {
+            'Content-Type':'application/json',
+            'X-API-KEY': APIKEY
+        }
+
+        let url = ENDPOINT + this.settingCondition;
+        let options = {
+            url: url,
+            method: 'GET',
+            headers: headers,
+            json: true
+        }
+        return options
+    }
+
+    private getResasData(): any {
+        console.log(this.settingCondition);
+        // アロー関数を用いて
+        Request(this.settingResasApi(), (error: string, response: any, body: any) => {
+            console.log('error:', error);
+            console.log('statusCode:', response && response.statusCode);
+            console.log('body:', body);
+            // this.populations = body.result.data[0].data;
+            this.populations = body.result.data[0].data;
+            console.log(this.populations)
+        });
+
+    }
+
+    async getData(): Promise<any> {
+        try {
+            await this.check()
+            await this.getResasData()
+        } catch (err) {
+            console.error();
+        }
     }
 }
 </script>
