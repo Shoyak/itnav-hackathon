@@ -67,25 +67,18 @@ export default class SelectCity extends Vue {
     ];
 
     private check() {
-
+        // 検索したいcityCode入れる
+        let searchCityCode = "04104";
+        // 選択されたものを検索する
         let citySelected = this.cities.filter((value: any, index: any, array: any) => {
             // cityCodeの指定
-            if( value.cityCode == "04102" ) {
+            if( value.cityCode == searchCityCode ) {
                 return true;
             }
             return false;
         });
-        // 04102 宮城野区のcityCodeが返ってくる
+        // 検索対象のcityCode表示
         console.log(citySelected[0].cityCode);
-        // // this.cities[0]~[82](市町村)[1]
-        // // flag
-        // console.log(this.cities[0].bigCityFlag);
-        // // cityCode
-        // console.log(this.cities[0].cityCode);
-        // CityName
-        console.log(this.cities[2].cityName);
-        // // prefCode
-        // console.log(this.cities[0].prefCode);
     }
 
     // private checkCities() {
