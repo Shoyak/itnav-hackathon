@@ -80,10 +80,6 @@ export default class SelectCity extends Vue {
         // 検索対象のcityCode表示
         console.log(citySelected[0].cityCode);
     }
-
-    // private checkCities() {
-
-    // }
 }
 </script>
 
