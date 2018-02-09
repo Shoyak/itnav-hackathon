@@ -23,14 +23,6 @@ import Compare from '@/components/Compare.vue';
 export default class Index extends RootVue {
     public title: string = 'index';
 
-    async getData(): Promise<any> {
-        try {
-
-        } catch (err) {
-            console.error();
-        }
-    }
-
     protected beforeCreate(): void {
         // Inner Vue 登録
         VueUtil.registerComponents([Sample,SelectPrefecture, SelectCity, Compare]);
