@@ -14,6 +14,7 @@
 
         span City URL :
             a(v-bind:href="searchedCityUrl") {{ searchedCityUrl }}
+    p 出典：RESAS（地域経済分析システム）
 </template>
 
 <script lang='ts'>
@@ -185,5 +186,9 @@ export default class SelectCity extends Vue {
         background: #f8f8f8
         border-radius: 5px
         margin: 12px
+
+    & > p
+        font-size: 1rem
+        text-align: right
 </style>
 
